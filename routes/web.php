@@ -14,7 +14,12 @@ use App\Http\Controllers\TweetController;
 |
 */
 
-Route::resource('tweet', TweetController::class);
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/tweet/mypage', [TweetController::class, 'mydata'])->name('tweet.mypage');
+    Route::resource('tweet', TweetController::class);
+});
+
+//Route::resource('tweet', TweetController::class);
 //コントローラーはapp/Http/Controllers
 
 Route::get('/', function () {
